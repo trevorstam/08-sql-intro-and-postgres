@@ -12,7 +12,7 @@ const app = express();
 // const conString = 'postgres://USER:PASSWORD@HOST:PORT/DBNAME';
 
 // Mac:
-const conString = 'postgres://localhost:5432';
+const conString = 'postgres://localhost:5432/kilovolt';
 
 const client = new pg.Client(conString);
 
@@ -162,7 +162,7 @@ function loadArticles() {
       // REVIEW: result.rows is an array of objects that PostgreSQL returns as a response to a query.
       // If there is nothing on the table, then result.rows[0] will be undefined, which will make count undefined. parseInt(undefined) returns NaN. !NaN evaluates to true.
       // Therefore, if there is nothing on the table, line 158 will evaluate to true and enter into the code block.
-      if (!parseInt(result.rows[0].count)) {
+      if (!parseInt(result.rows[0].count)) { // "250" => 250
         fs.readFile('./public/data/hackerIpsum.json', 'utf8', (err, fd) => {
           JSON.parse(fd).forEach(ele => {
             let SQL = `
